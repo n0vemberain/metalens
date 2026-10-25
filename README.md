@@ -5,7 +5,7 @@
 ---
 
 > [!TIP]
-> ## 🚀 Live Website / লাইভ অ্যাপ্লিকেশন
+> ## 🚀 Live Application
 > # 👉 **[https://n0vemberain.github.io/metalens/](https://n0vemberain.github.io/metalens/)** 👈
 >
 > **Click above to try MetaLens live directly in your browser!**  
@@ -76,7 +76,7 @@
 - **Pre-loaded Sample Photos**: Test immediately with pre-configured sample photos (Sony Alpha A7 IV, Apple iPhone 15 Pro, and Canon EOS R5).
 
 ### 10. 🌍 Bilingual Interface
-- Fully localized in **Bengali (বাংলা)** and **English**, toggleable with one click.
+- Fully localized in **English** and **Bengali**, toggleable with one click.
 
 ---
 
