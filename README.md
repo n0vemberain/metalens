@@ -2,19 +2,21 @@
 
 > A high-performance, privacy-first, client-side web application designed to extract, analyze, visualize, and sanitize image metadata (EXIF, GPS, IPTC, XMP, ICC, and Camera Settings) directly in your browser.
 
-[![Live Demo](https://img.shields.io/badge/Live_Demo-Open_MetaLens-6366f1?style=for-the-badge&logo=google-chrome&logoColor=white)](https://n0vemberain.github.io/metalens/)
+---
+
+> [!TIP]
+> ## 🚀 Live Website / লাইভ অ্যাপ্লিকেশন
+> # 👉 **[https://n0vemberain.github.io/metalens/](https://n0vemberain.github.io/metalens/)** 👈
+>
+> **Click above to try MetaLens live directly in your browser!**  
+> *Zero setup required • 100% Client-Side & Private • No images uploaded to any server.*
+
+[![Open Live App](https://img.shields.io/badge/🚀%20OPEN%20LIVE%20WEBSITE-https%3A%2F%2Fn0vemberain.github.io%2Fmetalens%2F-4F46E5?style=for-the-badge&logo=rocket&logoColor=white)](https://n0vemberain.github.io/metalens/)
 [![React](https://img.shields.io/badge/React-18-61DAFB?style=flat-square&logo=react&logoColor=black)](https://react.dev/)
 [![Vite](https://img.shields.io/badge/Vite-6-646CFF?style=flat-square&logo=vite&logoColor=white)](https://vite.dev/)
 [![Tailwind CSS](https://img.shields.io/badge/TailwindCSS-3.4-38B2AC?style=flat-square&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
 [![Leaflet](https://img.shields.io/badge/Leaflet-1.9-199900?style=flat-square&logo=leaflet&logoColor=white)](https://leafletjs.com/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](LICENSE)
-
----
-
-## 🌐 Live Demo
-
-Experience the live application here:  
-👉 **[https://n0vemberain.github.io/metalens/](https://n0vemberain.github.io/metalens/)**
 
 ---
 
