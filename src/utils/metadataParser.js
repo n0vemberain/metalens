@@ -1,7 +1,7 @@
 import ExifReader from 'exifreader';
 
 /**
- * Format bytes into human readable format
+ * Format bytes into human readable format (KB, MB, GB)
  */
 export function formatBytes(bytes, decimals = 2) {
   if (!bytes || bytes === 0) return '0 Bytes';
@@ -59,10 +59,24 @@ export function calculateAspectRatio(width, height) {
 }
 
 /**
+ * Calculate print dimensions at given DPI
+ */
+export function calculatePrintDimensions(width, height, dpi) {
+  if (!width || !height || !dpi) return null;
+  const inchesW = (width / dpi).toFixed(1);
+  const inchesH = (height / dpi).toFixed(1);
+  const cmW = ((width / dpi) * 2.54).toFixed(1);
+  const cmH = ((height / dpi) * 2.54).toFixed(1);
+  return {
+    inches: `${inchesW}" × ${inchesH}"`,
+    cm: `${cmW} × ${cmH} cm`
+  };
+}
+
+/**
  * Parse metadata from an image File or ArrayBuffer
  */
 export async function parseImageMetadata(file) {
-  // Read array buffer
   const arrayBuffer = await file.arrayBuffer();
   
   // Load using ExifReader with expanded groups
@@ -70,9 +84,8 @@ export async function parseImageMetadata(file) {
   try {
     tags = ExifReader.load(arrayBuffer, { expanded: true });
   } catch (err) {
-    console.warn('ExifReader basic parse warning:', err);
+    console.warn('ExifReader expanded parse warning:', err);
     try {
-      // Fallback without expanded
       const simpleTags = ExifReader.load(arrayBuffer);
       tags = { exif: simpleTags };
     } catch (e2) {
@@ -192,11 +205,14 @@ export async function parseImageMetadata(file) {
       size: file.size,
       humanSize: formatBytes(file.size),
       type: file.type || 'image/jpeg',
-      lastModified: file.lastModified ? new Date(file.lastModified).toLocaleString() : null,
+      lastModified: file.lastModified ? new Date(file.lastModified).toLocaleString('en-US') : null,
       width: imgWidth,
       height: imgHeight,
       megapixels,
       aspectRatio,
+      print300: calculatePrintDimensions(imgWidth, imgHeight, 300),
+      print240: calculatePrintDimensions(imgWidth, imgHeight, 240),
+      print150: calculatePrintDimensions(imgWidth, imgHeight, 150),
     },
     cameraInfo: {
       make: cleanString(make),
@@ -290,16 +306,20 @@ function cleanFocalLength(val) {
 function formatDate(val) {
   if (!val) return null;
   const str = String(val).trim();
-  // EXIF format is usually YYYY:MM:DD HH:MM:SS
   const match = str.match(/^(\d{4})[:\-](\d{2})[:\-](\d{2})\s+(\d{2}):(\d{2}):(\d{2})/);
   if (match) {
     const [_, y, m, d, hh, mm, ss] = match;
     try {
       const date = new Date(`${y}-${m}-${d}T${hh}:${mm}:${ss}`);
-      return date.toLocaleString('bn-BD', {
-        dateStyle: 'medium',
-        timeStyle: 'medium'
-      }) + ` (${str})`;
+      return date.toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric'
+      }) + ' at ' + date.toLocaleTimeString('en-US', {
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+      });
     } catch {
       return str;
     }

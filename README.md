@@ -1,4 +1,4 @@
-# MetaLens — Professional Image Metadata & EXIF Extractor
+# MetaLens — Professional Image Metadata & EXIF Studio
 
 > A high-performance, privacy-first, client-side web application designed to extract, analyze, visualize, and sanitize image metadata (EXIF, GPS, IPTC, XMP, ICC, and Camera Settings) directly in your browser.
 
@@ -26,7 +26,11 @@
 - **Zero Server Uploads**: Every byte of your image is parsed strictly inside your local browser memory using modern web APIs (`FileReader`, `ArrayBuffer`, and HTML5 Canvas).
 - Your private photos, location data, camera serial numbers, and personal tags **never leave your device**.
 
-### 2. Camera & Exposure Dashboard
+### 2. Studio Workbench Architecture
+- **Responsive Two-Column Layout**: A dedicated sticky visual inspector on the left paired with a multi-tab analytical workbench on the right.
+- High-resolution image preview with click-to-expand lightbox, instant exposure summary dials, and quick metadata chips.
+
+### 3. Camera & Exposure Dashboard
 - **Camera & Lens Gear**: Camera Make, Model, Lens Model, Lens Make, and Firmware version.
 - **Exposure Diagnostics**:
   - Aperture ($f$-stop)
@@ -38,45 +42,43 @@
   - Flash Status (Fired, Did not fire, Auto)
   - White Balance & Exposure Compensation (EV Bias)
 
-### 3. Geolocation & Interactive Map
+### 4. Geolocation & Interactive Map
 - Automatic extraction of GPS coordinates (Decimal Degrees and DMS format: `23° 46' 20" N`).
 - Altitude calculation (meters and feet above sea level).
-- **Interactive OpenStreetMap / Leaflet map** with custom pin and interactive popup.
+- **Interactive OpenStreetMap / Leaflet map** with custom marker and coordinates popup.
 - One-click links to open location in **Google Maps** or **OpenStreetMap**.
 - One-click GPS coordinates copy.
 
-### 4. File & Display Specifications
+### 5. File & Display Specifications
 - Real pixel dimensions (Width × Height) and Megapixel (MP) calculation.
 - Aspect Ratio recognition ($16:9, 4:3, 3:2, 1:1$, etc.).
-- Print size estimation for professional 300 DPI high-quality prints.
+- **Print Size Estimator**: Calculates exact physical dimensions in inches and centimeters for 300 DPI (Fine Art), 240 DPI (Editorial), and 150 DPI (Poster) output.
 - Color Space (sRGB, Adobe RGB, Display P3) and Bit Depth.
 
-### 5. Creator & Copyright Information
+### 6. Creator & Copyright Information
 - Photographer / Artist name (IPTC/EXIF by-line).
 - Copyright notices and image descriptions / captions.
 - Editing software detection (e.g. Adobe Photoshop, Lightroom, Capture One).
 
-### 6. Searchable Raw Tags Inspector
+### 7. Searchable Raw Tags Inspector
 - Live instant search across hundreds of raw metadata tags and descriptions.
 - Filter by tag groups: `EXIF`, `GPS`, `IPTC`, `XMP`, `ICC`, `FILE`.
 - Copy individual tag values or entire tag blocks with a single click.
+- Filtered table JSON export capability.
 
-### 7. Privacy Sanitizer (Metadata Stripper)
+### 8. Privacy Sanitizer (Metadata Stripper)
 - Download a sanitized version of the image with all EXIF, GPS coordinates, and camera information stripped.
 - Choose between JPEG (with customizable compression quality) or lossless PNG.
 
-### 8. Export Options
+### 9. Export Options
 - Export complete metadata structure as a neatly formatted `.json` file.
-- One-click copy of all parsed metadata to your clipboard.
+- One-click copy of the key technical summary to your clipboard.
 
-### 9. Seamless Input Options
+### 10. Seamless Input Options
 - **Drag & Drop** file zone.
 - Traditional file browser.
 - **Clipboard Paste (`Ctrl+V` / `Cmd+V`)**: Paste images directly from screenshots or web pages.
 - **Pre-loaded Sample Photos**: Test immediately with pre-configured sample photos (Sony Alpha A7 IV, Apple iPhone 15 Pro, and Canon EOS R5).
-
-### 10. Bilingual Interface
-- Fully localized in **English** and **Bengali**, toggleable with one click.
 
 ---
 
@@ -136,7 +138,7 @@ npm run preview
 - **Icons**: [Lucide React](https://lucide.dev/)
 - **Metadata Engine**: [ExifReader](https://github.com/mattiasw/ExifReader)
 - **Map & Geolocation**: [Leaflet](https://leafletjs.com/) & OpenStreetMap
-- **Typography**: Google Fonts (*Hind Siliguri*, *Inter*, *JetBrains Mono*)
+- **Typography**: Google Fonts (*Inter*, *JetBrains Mono*)
 
 ---
 

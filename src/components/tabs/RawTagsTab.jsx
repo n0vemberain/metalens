@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
-import { Search, Filter, Copy, Check, Hash, ArrowUpDown } from 'lucide-react';
+import { Search, Copy, Check, Layers, Download } from 'lucide-react';
 
-export default function RawTagsTab({ allTags, t }) {
+export default function RawTagsTab({ allTags }) {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedGroup, setSelectedGroup] = useState('ALL');
   const [copiedId, setCopiedId] = useState(null);
@@ -37,6 +37,16 @@ export default function RawTagsTab({ allTags, t }) {
     setTimeout(() => setCopiedId(null), 1800);
   };
 
+  const handleExportFilteredJson = () => {
+    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(filteredTags, null, 2));
+    const downloadAnchor = document.createElement('a');
+    downloadAnchor.setAttribute("href", dataStr);
+    downloadAnchor.setAttribute("download", `raw_tags_${selectedGroup.toLowerCase()}.json`);
+    document.body.appendChild(downloadAnchor);
+    downloadAnchor.click();
+    downloadAnchor.remove();
+  };
+
   const getGroupBadgeColor = (group) => {
     switch (group) {
       case 'EXIF':
@@ -57,41 +67,52 @@ export default function RawTagsTab({ allTags, t }) {
   return (
     <div className="space-y-4">
       {/* Search & Filter Toolbar */}
-      <div className="glass-panel rounded-2xl p-4 border border-slate-800 flex flex-col sm:flex-row gap-3 items-center justify-between">
+      <div className="glass-panel rounded-2xl p-4 border border-slate-800 flex flex-col md:flex-row gap-3 items-center justify-between shadow-md">
         {/* Search input */}
-        <div className="relative w-full sm:w-80">
-          <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
+        <div className="relative w-full md:w-80">
+          <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 transform -translate-y-1/2" />
           <input
             type="text"
-            placeholder={t.searchPlaceholder}
+            placeholder="Search by tag name, group, or value..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-9 pr-4 py-2 bg-slate-900 border border-slate-700 rounded-xl text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition"
+            className="w-full pl-9 pr-4 py-2 bg-slate-900 border border-slate-700/80 rounded-xl text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition"
           />
         </div>
 
-        {/* Group Filter Pills */}
-        <div className="flex flex-wrap items-center gap-1.5 w-full sm:w-auto">
-          {availableGroups.map((grp) => (
-            <button
-              key={grp}
-              onClick={() => setSelectedGroup(grp)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition ${
-                selectedGroup === grp
-                  ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/30'
-                  : 'bg-slate-800/80 hover:bg-slate-800 text-slate-400 hover:text-white border border-slate-700/60'
-              }`}
-            >
-              {grp === 'ALL' ? t.allGroups : grp}
-            </button>
-          ))}
+        {/* Group Filter Pills & Export */}
+        <div className="flex flex-wrap items-center gap-1.5 w-full md:w-auto justify-between md:justify-end">
+          <div className="flex flex-wrap items-center gap-1.5">
+            {availableGroups.map((grp) => (
+              <button
+                key={grp}
+                onClick={() => setSelectedGroup(grp)}
+                className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition ${
+                  selectedGroup === grp
+                    ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/30'
+                    : 'bg-slate-900/80 hover:bg-slate-800 text-slate-400 hover:text-white border border-slate-800'
+                }`}
+              >
+                {grp === 'ALL' ? 'All Groups' : grp}
+              </button>
+            ))}
+          </div>
+
+          <button
+            onClick={handleExportFilteredJson}
+            className="hidden sm:flex items-center space-x-1.5 px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-medium border border-slate-700 transition"
+            title="Export filtered tags as JSON"
+          >
+            <Download className="w-3.5 h-3.5" />
+            <span>Export Table</span>
+          </button>
         </div>
       </div>
 
       {/* Results Header */}
       <div className="flex items-center justify-between text-xs text-slate-400 px-1">
-        <span>{t.totalTagsFound.replace('{count}', filteredTags.length)}</span>
-        <span>ক্লিপবোর্ডে কপি করতে সারির ডানপাশে ক্লিক করুন</span>
+        <span>{filteredTags.length} metadata tags found</span>
+        <span>Click the copy button on any row to copy its value</span>
       </div>
 
       {/* Raw Tags Table */}
@@ -100,32 +121,32 @@ export default function RawTagsTab({ allTags, t }) {
           <table className="w-full text-left text-xs">
             <thead className="sticky top-0 bg-slate-950/95 backdrop-blur-md text-slate-400 uppercase tracking-wider text-[11px] border-b border-slate-800 z-10">
               <tr>
-                <th className="py-3 px-4 w-24">{t.tagGroup}</th>
-                <th className="py-3 px-4 w-1/3">{t.tagName}</th>
-                <th className="py-3 px-4">{t.tagDescription}</th>
-                <th className="py-3 px-4 text-right w-16">{t.actions}</th>
+                <th className="py-3 px-4 w-24">Group</th>
+                <th className="py-3 px-4 w-1/3">Tag Name</th>
+                <th className="py-3 px-4">Description / Value</th>
+                <th className="py-3 px-4 text-right w-16">Action</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800/60">
+            <tbody className="divide-y divide-slate-800/60 font-mono">
               {filteredTags.length > 0 ? (
                 filteredTags.map((tag) => (
-                  <tr key={tag.id} className="hover:bg-slate-800/40 transition group">
-                    <td className="py-2.5 px-4">
-                      <span className={`inline-block px-2 py-0.5 rounded text-[10px] font-mono font-semibold border ${getGroupBadgeColor(tag.group)}`}>
+                  <tr key={tag.id} className="hover:bg-slate-900/50 transition group">
+                    <td className="py-2.5 px-4 font-sans">
+                      <span className={`inline-block px-2 py-0.5 rounded text-[10px] font-semibold border ${getGroupBadgeColor(tag.group)}`}>
                         {tag.group}
                       </span>
                     </td>
-                    <td className="py-2.5 px-4 font-mono font-semibold text-indigo-300">
+                    <td className="py-2.5 px-4 font-semibold text-indigo-300 break-words">
                       {tag.name}
                     </td>
-                    <td className="py-2.5 px-4 text-slate-200 font-mono break-words max-w-xl">
+                    <td className="py-2.5 px-4 text-slate-200 break-words max-w-xl">
                       {tag.description || tag.value}
                     </td>
-                    <td className="py-2.5 px-4 text-right">
+                    <td className="py-2.5 px-4 text-right font-sans">
                       <button
                         onClick={() => handleCopyTag(tag)}
                         className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white transition"
-                        title={t.copyTag}
+                        title="Copy tag"
                       >
                         {copiedId === tag.id ? (
                           <Check className="w-3.5 h-3.5 text-emerald-400" />
@@ -138,8 +159,8 @@ export default function RawTagsTab({ allTags, t }) {
                 ))
               ) : (
                 <tr>
-                  <td colSpan="4" className="py-12 text-center text-slate-500 italic">
-                    {t.noTagsMatch}
+                  <td colSpan="4" className="py-12 text-center text-slate-500 font-sans italic">
+                    No matching metadata tags found for "{searchTerm}"
                   </td>
                 </tr>
               )}

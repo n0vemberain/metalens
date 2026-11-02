@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { ShieldCheck, Download, X, Sliders, CheckCircle2 } from 'lucide-react';
+import { ShieldCheck, Download, X, CheckCircle2 } from 'lucide-react';
 import { stripMetadata, downloadBlob } from '../utils/metadataParser';
 
-export default function StripMetadataModal({ isOpen, onClose, file, t }) {
+export default function StripMetadataModal({ isOpen, onClose, file }) {
   const [format, setFormat] = useState('image/jpeg');
   const [quality, setQuality] = useState(0.92);
   const [isProcessing, setIsProcessing] = useState(false);
@@ -27,7 +27,7 @@ export default function StripMetadataModal({ isOpen, onClose, file, t }) {
     } catch (err) {
       console.error('Error stripping metadata:', err);
       setIsProcessing(false);
-      alert('ছবি প্রসেসিং করতে সমস্যা হয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন।');
+      alert('Failed to sanitize image metadata. Please try again with another image.');
     }
   };
 
@@ -46,13 +46,13 @@ export default function StripMetadataModal({ isOpen, onClose, file, t }) {
             <ShieldCheck className="w-5 h-5" />
           </div>
           <div>
-            <h3 className="text-lg font-bold text-white">{t.cleanDownloadModalTitle}</h3>
-            <p className="text-xs text-slate-400">ব্যক্তিগত তথ্য ও ভৌগোলিক স্থানাঙ্ক সুরক্ষিত রাখুন</p>
+            <h3 className="text-lg font-bold text-white">Sanitize & Strip Metadata</h3>
+            <p className="text-xs text-slate-400">Purge GPS geolocation, camera serials, and EXIF tags</p>
           </div>
         </div>
 
-        <p className="text-xs text-slate-300 leading-relaxed mb-5 bg-slate-900/60 p-3 rounded-xl border border-slate-800">
-          {t.cleanDownloadDesc}
+        <p className="text-xs text-slate-300 leading-relaxed mb-5 bg-slate-900/60 p-3.5 rounded-xl border border-slate-800">
+          This utility repaints the photograph pixels onto a fresh HTML5 canvas, effectively eliminating all hidden EXIF markers, GPS coordinates, camera serial numbers, and thumbnail artifacts before publishing online.
         </p>
 
         {/* Options */}
@@ -60,7 +60,7 @@ export default function StripMetadataModal({ isOpen, onClose, file, t }) {
           {/* Format Selection */}
           <div>
             <label className="text-xs font-semibold text-slate-300 block mb-2">
-              আউটপুট ফরম্যাট:
+              Output Format:
             </label>
             <div className="grid grid-cols-2 gap-3">
               <button
@@ -68,22 +68,22 @@ export default function StripMetadataModal({ isOpen, onClose, file, t }) {
                 onClick={() => setFormat('image/jpeg')}
                 className={`py-2 px-3 rounded-xl text-xs font-semibold border transition ${
                   format === 'image/jpeg'
-                    ? 'border-indigo-500 bg-indigo-500/20 text-white'
+                    ? 'border-indigo-500 bg-indigo-500/20 text-white shadow-sm'
                     : 'border-slate-800 bg-slate-900/60 text-slate-400 hover:text-white'
                 }`}
               >
-                JPEG / JPG (কম্প্যাক্ট সাইজ)
+                JPEG / JPG (Optimized Size)
               </button>
               <button
                 type="button"
                 onClick={() => setFormat('image/png')}
                 className={`py-2 px-3 rounded-xl text-xs font-semibold border transition ${
                   format === 'image/png'
-                    ? 'border-indigo-500 bg-indigo-500/20 text-white'
+                    ? 'border-indigo-500 bg-indigo-500/20 text-white shadow-sm'
                     : 'border-slate-800 bg-slate-900/60 text-slate-400 hover:text-white'
                 }`}
               >
-                PNG (লসলেস কোয়ালিটি)
+                PNG (Lossless Quality)
               </button>
             </div>
           </div>
@@ -92,7 +92,7 @@ export default function StripMetadataModal({ isOpen, onClose, file, t }) {
           {format === 'image/jpeg' && (
             <div>
               <div className="flex justify-between items-center text-xs mb-1.5">
-                <span className="text-slate-300 font-semibold">ইমেজ কোয়ালিটি:</span>
+                <span className="text-slate-300 font-semibold">Image Compression Quality:</span>
                 <span className="font-mono text-indigo-400 font-bold">{Math.round(quality * 100)}%</span>
               </div>
               <input
@@ -114,7 +114,7 @@ export default function StripMetadataModal({ isOpen, onClose, file, t }) {
             onClick={onClose}
             className="flex-1 py-2.5 px-4 rounded-xl text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-300 transition"
           >
-            বাতিল
+            Cancel
           </button>
 
           <button
@@ -127,12 +127,12 @@ export default function StripMetadataModal({ isOpen, onClose, file, t }) {
             ) : downloadDone ? (
               <>
                 <CheckCircle2 className="w-4 h-4 text-emerald-300" />
-                <span>ডাউনলোড সম্পন্ন!</span>
+                <span>Sanitized File Ready!</span>
               </>
             ) : (
               <>
                 <Download className="w-4 h-4" />
-                <span>{t.downloadCleanImage}</span>
+                <span>Download Sanitized Photo</span>
               </>
             )}
           </button>
