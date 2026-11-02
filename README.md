@@ -20,6 +20,16 @@
 
 ---
 
+## Application Preview
+
+![MetaLens Studio Overview and Upload Dropzone](images/01.png)
+
+<br />
+
+![MetaLens Analysis Workbench and EXIF Inspector](images/02.png)
+
+---
+
 ## Features
 
 ### 1. 100% Client-Side & Privacy-First
