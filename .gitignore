@@ -1,4 +1,9 @@
-# Logs
+# Android & Build Artifacts
+*.apk
+android/local.properties
+android/.gradle/
+android/app/build/
+
 logs
 *.log
 npm-debug.log*

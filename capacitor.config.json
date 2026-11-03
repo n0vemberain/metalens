@@ -1,0 +1,8 @@
+{
+  "appId": "com.fatin.metalens",
+  "appName": "MetaLens",
+  "webDir": "dist",
+  "server": {
+    "androidScheme": "https"
+  }
+}
