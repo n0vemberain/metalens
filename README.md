@@ -138,11 +138,27 @@ npm run build
 npm run preview
 ```
 
+### Building for Android (APK)
+
+```bash
+# 1. Build web bundle and sync with native Android project
+npm run build
+npx cap sync android
+
+# 2. Compile native Android debug APK
+cd android
+./gradlew assembleDebug
+
+# The compiled APK will be located at:
+# android/app/build/outputs/apk/debug/app-debug.apk
+```
+
 ---
 
 ## Tech Stack
 
 - **Framework**: [React 18](https://react.dev/)
+- **Mobile Engine**: [Capacitor 7](https://capacitorjs.com/)
 - **Build Tool**: [Vite 6](https://vite.dev/)
 - **Styling**: [Tailwind CSS 3.4](https://tailwindcss.com/)
 - **Icons**: [Lucide React](https://lucide.dev/)
