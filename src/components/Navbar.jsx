@@ -1,5 +1,5 @@
 import React from 'react';
-import { Camera, ShieldCheck, RefreshCw, Download, ShieldAlert } from 'lucide-react';
+import { Camera, ShieldCheck, RefreshCw, Download, ShieldAlert, Smartphone } from 'lucide-react';
 
 function GithubIcon({ className = "w-4 h-4" }) {
   return (
@@ -78,6 +78,17 @@ export default function Navbar({ hasImage, onReset, onOpenStripModal, onExportJs
               </button>
             </>
           )}
+
+          {/* Download Android APK Link */}
+          <a
+            href="https://github.com/n0vemberain/metalens/releases/download/v1.0.0/MetaLens.apk"
+            className="flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-300 border border-emerald-500/30 transition shadow-sm active:scale-95"
+            title="Download Android APK (v1.0.0 • 4.5 MB)"
+          >
+            <Smartphone className="w-3.5 h-3.5 text-emerald-400" />
+            <span className="hidden sm:inline">Download APK</span>
+            <span className="sm:hidden">APK</span>
+          </a>
 
           {/* GitHub Repository Link */}
           <a

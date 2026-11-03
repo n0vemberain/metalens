@@ -9,7 +9,9 @@ import {
   Layers, 
   FileCode2, 
   Eye, 
-  ArrowRight 
+  ArrowRight,
+  Smartphone,
+  Download
 } from 'lucide-react';
 
 export default function Dropzone({ onFileSelected, isLoading }) {
@@ -77,9 +79,20 @@ export default function Dropzone({ onFileSelected, isLoading }) {
     <div className="w-full max-w-6xl mx-auto px-4 py-8 sm:py-14">
       {/* Hero Header */}
       <div className="text-center mb-10">
-        <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-xs font-semibold mb-5 shadow-sm">
-          <Sparkles className="w-3.5 h-3.5 text-indigo-400" />
-          <span>Professional EXIF, IPTC & GPS Geolocation Studio</span>
+        <div className="flex flex-wrap items-center justify-center gap-2 mb-5">
+          <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-xs font-semibold shadow-sm">
+            <Sparkles className="w-3.5 h-3.5 text-indigo-400" />
+            <span>Professional EXIF, IPTC & GPS Geolocation Studio</span>
+          </div>
+          <a
+            href="https://github.com/n0vemberain/metalens/releases/download/v1.0.0/MetaLens.apk"
+            className="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-full bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/30 text-emerald-300 text-xs font-semibold transition active:scale-95 shadow-sm"
+            title="Download MetaLens APK for Android"
+          >
+            <Smartphone className="w-3.5 h-3.5 text-emerald-400" />
+            <span>Android APK v1.0.0 Available</span>
+            <Download className="w-3 h-3 text-emerald-400" />
+          </a>
         </div>
         <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight mb-5 leading-tight">
           Inspect & Extract Image <br className="hidden sm:inline" />

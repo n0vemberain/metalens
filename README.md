@@ -11,8 +11,17 @@
 > **Click above to try MetaLens live directly in your browser.**  
 > *Zero setup required • 100% Client-Side & Private • No images uploaded to any server.*
 
+> [!NOTE]
+> ## Android APK Download
+> # **[Download MetaLens.apk (v1.0.0)](https://github.com/n0vemberain/metalens/releases/download/v1.0.0/MetaLens.apk)**
+>
+> **Direct standalone APK package (4.5 MB) ready to install on Android.**  
+> *Supports Android 7.0 through Android 15 • 100% Offline • Complete privacy.*
+
 [![Open Live App](https://img.shields.io/badge/OPEN%20LIVE%20WEBSITE-https%3A%2F%2Fn0vemberain.github.io%2Fmetalens%2F-4F46E5?style=for-the-badge)](https://n0vemberain.github.io/metalens/)
+[![Download Android APK](https://img.shields.io/badge/Download_APK-MetaLens_v1.0.0-3DDC84?style=for-the-badge&logo=android&logoColor=white)](https://github.com/n0vemberain/metalens/releases/download/v1.0.0/MetaLens.apk)
 [![React](https://img.shields.io/badge/React-18-61DAFB?style=flat-square&logo=react&logoColor=black)](https://react.dev/)
+[![Capacitor](https://img.shields.io/badge/Capacitor-7-119EFF?style=flat-square&logo=capacitor&logoColor=white)](https://capacitorjs.com/)
 [![Vite](https://img.shields.io/badge/Vite-6-646CFF?style=flat-square&logo=vite&logoColor=white)](https://vite.dev/)
 [![Tailwind CSS](https://img.shields.io/badge/TailwindCSS-3.4-38B2AC?style=flat-square&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
 [![Leaflet](https://img.shields.io/badge/Leaflet-1.9-199900?style=flat-square&logo=leaflet&logoColor=white)](https://leafletjs.com/)
